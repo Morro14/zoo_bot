@@ -1,4 +1,6 @@
 import telebot
+import asyncio
+from telebot.async_telebot import AsyncTeleBot
 from env import token
 from logging_ import BotLogger
 from telebot.types import (
@@ -7,18 +9,23 @@ from telebot.types import (
     InputMediaPhoto,
     InputFile,
 )
-from quiz import QuizBase
+from quiz import QuizBase, genResults
 from questions_main import questions
+from notifications import send_email_notification
 
 
 quiz = QuizBase("zoo_quiz", questions)
-bot = telebot.TeleBot(token=token)
+# bot = telebot.TeleBot(token=token)
+bot = AsyncTeleBot(token=token)
 logger = BotLogger("bot.log")
 
 
-def gen_markup(button_num):
+def gen_markup(options):
     markup = InlineKeyboardMarkup()
-    if button_num == 4:
+    if options == "intro":
+        markup.row_width = 1
+        markup.add(InlineKeyboardButton("Начать викторину", callback_data="start_quiz"))
+    if options == 4:
 
         markup.row_width = 2
         markup.add(
@@ -27,61 +34,95 @@ def gen_markup(button_num):
             InlineKeyboardButton("3", callback_data="3"),
             InlineKeyboardButton("4", callback_data="4"),
         )
-    if button_num == 2:
+    if options == 2:
         markup.row_width = 2
         markup.add(
             InlineKeyboardButton("1", callback_data="1"),
             InlineKeyboardButton("2", callback_data="2"),
         )
+
     return markup
 
 
 @bot.callback_query_handler(func=lambda call: True)
-def callback_query(call):
+async def callback_query(call):
+    # print(call, call.message)
+    # set user info
+
     if call.data == "1":
         quiz.set_answer("1")
-        bot.answer_callback_query(call.id, f"Your answer is 1")
+        quiz.next_question()
+        bot.answer_callback_query(call.id, "Your answer is 1")
     if call.data == "2":
         quiz.set_answer("2")
+        quiz.next_question()
         bot.answer_callback_query(call.id, "Your answer is 2")
     if call.data == "3":
         quiz.set_answer("3")
+        quiz.next_question()
         bot.answer_callback_query(call.id, "Your answer is 3")
     if call.data == "4":
         quiz.set_answer("4")
-        bot.answer_callback_query(call.id, "Your answer is 4")
-
-    if quiz.cur_question != len(quiz):
         quiz.next_question()
+        bot.answer_callback_query(call.id, "Your answer is 4")
+    if call.data == "quiz_start":
+        quiz.reset()
+        print("quiz start")
+
+    # if quiz.cur_question < 11:
+    #     quiz.cur_question = 11
+    if quiz.cur_question < len(quiz):
+
         cur_question = quiz.get_cur_question()
-        bot.send_message(
+        media_list = []
+        for opt in cur_question.options:
+            if opt.media:
+                media_list.append(opt.media)
+        await bot.send_media_group(
+            call.message.chat.id,
+            [InputMediaPhoto(InputFile(n)) for n in media_list],
+        )
+        await bot.send_message(
             call.message.chat.id,
             cur_question,
             reply_markup=gen_markup(len(cur_question.options)),
         )
-        bot.send_media_group(
-            call.message.chat.id,
-            [InputMediaPhoto(InputFile("./media/golden_pheasant.JPG"))],
+
+    else:
+        result = genResults(quiz)
+        quiz.set_user(
+            call.from_user.id,
+            call.from_user.first_name,
+            call.from_user.username,
+            call.from_user.last_name,
+            call.from_user.language_code,
+        )
+
+        await bot.send_photo(
+            chat_id=call.message.chat.id,
+            photo=InputFile(result.media),
+            caption=f"Итак, ваше тотемное животное -- {result.animal}!",
+        )
+        await bot.send_message(
+            chat_id=call.message.chat.id,
+            text="Вы можете взять этого обитателя зоопарка под свою опеку! Участие в программе «Клуб друзей зоопарка» — это помощь в содержании наших обитателей, а также ваш личный вклад в дело сохранения биоразнообразия Земли и развитие нашего зоопарка. Узнайте больше по ссылке https://moscowzoo.ru/about/guardianship",
+        )
+        await send_email_notification(
+            subject="Рузельтаты викторины", message=result.animal, user_info=quiz.user
         )
 
 
 @bot.message_handler(commands=["start", "help"])
-def send_welcome(message):
+async def send_welcome(message):
     logger.log("info", f"Команда /start")
-    cur_question = quiz.get_cur_question()
-    bot.reply_to(message, "Quiz start!")
-    bot.send_message(
-        message.chat.id,
-        quiz.get_cur_question(),
-        reply_markup=gen_markup(len(cur_question.options)),
+
+    intro_caption = "Приймите участие в викторине об обитателях московского зоопарка и узнайте свое тотемное животное! Цель этой небольшой игры - рассказать о программе опеки животных от Московского Зоопарка. Подробности - в конце викторины."
+    await bot.send_photo(
+        chat_id=message.chat.id,
+        photo=InputFile("./media/logo.jpg"),
+        caption=intro_caption,
+        reply_markup=gen_markup("intro"),
     )
-    media_list = []
-    for opt in cur_question.options:
-        media_list.append(InputMediaPhoto(InputFile(opt.media)))
-    bot.send_media_group(message.chat.id, media_list)
 
 
-# @bot.message_handler(func=lambda message: True)
-# def message_handler
-
-bot.infinity_polling()
+asyncio.run(bot.polling())
