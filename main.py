@@ -1,8 +1,8 @@
-import telebot
 import asyncio
 from telebot.async_telebot import AsyncTeleBot
 from env import token
 from logging_ import BotLogger
+from telebot.formatting import hlink
 from telebot.types import (
     InlineKeyboardMarkup,
     InlineKeyboardButton,
@@ -10,6 +10,7 @@ from telebot.types import (
     InputFile,
 )
 from quiz import QuizBase, genResults
+from socials import gen_vk_link
 from questions_main import questions
 from notifications import send_email_notification
 
@@ -25,6 +26,11 @@ def gen_markup(options):
     if options == "intro":
         markup.row_width = 1
         markup.add(InlineKeyboardButton("Начать викторину", callback_data="start_quiz"))
+    if options == "restart":
+        markup.row_width = 1
+        markup.add(
+            InlineKeyboardButton("Повторить викторину", callback_data="quiz_start")
+        )
     if options == 4:
 
         markup.row_width = 2
@@ -46,8 +52,6 @@ def gen_markup(options):
 
 @bot.callback_query_handler(func=lambda call: True)
 async def callback_query(call):
-    # print(call, call.message)
-    # set user info
 
     if call.data == "1":
         quiz.set_answer("1")
@@ -89,6 +93,7 @@ async def callback_query(call):
         )
 
     else:
+
         result = genResults(quiz)
         quiz.set_user(
             call.from_user.id,
@@ -97,25 +102,36 @@ async def callback_query(call):
             call.from_user.last_name,
             call.from_user.language_code,
         )
-
+        logger.log("info", f"Quiz completed by user {quiz.user['id_']}")
         await bot.send_photo(
             chat_id=call.message.chat.id,
             photo=InputFile(result.media),
-            caption=f"Итак, ваше тотемное животное -- {result.animal}!",
+            caption=f"Правильных ответов: {quiz.stats}/{len(quiz)}.\n\nИтак, ваше тотемное животное -- {result.animal}!",
         )
+        zoo_link = hlink("ссылке", "https://moscowzoo.ru/about/guardianship")
+        vk_link = gen_vk_link(img=result.animal.image_url)
+        text = f"Вы можете взять этого обитателя зоопарка под свою опеку! Участие в программе «Клуб друзей зоопарка» — это помощь в содержании наших обитателей, а также ваш личный вклад в дело сохранения биоразнообразия Земли и развитие нашего зоопарка. Узнайте больше по {zoo_link}."
+        formatted_link = hlink("Поделиться Вконткте", vk_link)
+
         await bot.send_message(
             chat_id=call.message.chat.id,
-            text="Вы можете взять этого обитателя зоопарка под свою опеку! Участие в программе «Клуб друзей зоопарка» — это помощь в содержании наших обитателей, а также ваш личный вклад в дело сохранения биоразнообразия Земли и развитие нашего зоопарка. Узнайте больше по ссылке https://moscowzoo.ru/about/guardianship",
+            text=text + "\n\n" + formatted_link,
+            parse_mode="HTML",
+            reply_markup=gen_markup("restart"),
         )
-        await send_email_notification(
-            subject="Рузельтаты викторины", message=result.animal, user_info=quiz.user
-        )
+        # try:
+        #     await send_email_notification(
+        #         subject="Рузельтаты викторины",
+        #         message=result.animal,
+        #         user_info=quiz.user,
+        #     )
+        # except Exception as e:
+        #     print(e)
 
 
 @bot.message_handler(commands=["start", "help"])
 async def send_welcome(message):
-    logger.log("info", f"Команда /start")
-
+    logger.log("info", f"Command /start")
     intro_caption = "Приймите участие в викторине об обитателях московского зоопарка и узнайте свое тотемное животное! Цель этой небольшой игры - рассказать о программе опеки животных от Московского Зоопарка. Подробности - в конце викторины."
     await bot.send_photo(
         chat_id=message.chat.id,

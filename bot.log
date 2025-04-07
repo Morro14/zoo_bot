@@ -89,3 +89,105 @@
 2025-04-06 00:24:52,701 - bot_logger - INFO - Команда /start
 2025-04-06 00:25:47,725 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
 2025-04-06 00:25:47,725 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 20:33:19,615 - bot_logger - INFO - Команда /start
+2025-04-07 20:33:19,615 - bot_logger - INFO - Команда /start
+2025-04-07 20:34:20,063 - bot_logger - INFO - Команда /start
+2025-04-07 20:34:20,063 - bot_logger - INFO - Команда /start
+2025-04-07 20:58:55,250 - bot_logger - INFO - Команда /start
+2025-04-07 20:58:55,250 - bot_logger - INFO - Команда /start
+2025-04-07 21:11:23,662 - bot_logger - INFO - Команда /start
+2025-04-07 21:11:23,662 - bot_logger - INFO - Команда /start
+2025-04-07 21:20:30,215 - bot_logger - INFO - Команда /start
+2025-04-07 21:20:30,215 - bot_logger - INFO - Команда /start
+2025-04-07 22:40:16,809 - bot_logger - INFO - Команда /start
+2025-04-07 22:40:16,809 - bot_logger - INFO - Команда /start
+2025-04-07 22:41:24,523 - bot_logger - INFO - Команда /start
+2025-04-07 22:41:24,523 - bot_logger - INFO - Команда /start
+2025-04-07 22:42:48,606 - bot_logger - INFO - Команда /start
+2025-04-07 22:42:48,606 - bot_logger - INFO - Команда /start
+2025-04-07 22:44:12,163 - bot_logger - INFO - Команда /start
+2025-04-07 22:44:12,163 - bot_logger - INFO - Команда /start
+2025-04-07 22:44:40,883 - bot_logger - INFO - Команда /start
+2025-04-07 22:44:40,883 - bot_logger - INFO - Команда /start
+2025-04-07 22:44:56,723 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 22:44:56,723 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 22:49:18,468 - bot_logger - INFO - Команда /start
+2025-04-07 22:49:18,468 - bot_logger - INFO - Команда /start
+2025-04-07 22:54:45,465 - bot_logger - INFO - Команда /start
+2025-04-07 22:54:45,465 - bot_logger - INFO - Команда /start
+2025-04-07 22:55:08,185 - bot_logger - INFO - Команда /start
+2025-04-07 22:55:08,185 - bot_logger - INFO - Команда /start
+2025-04-07 22:55:25,973 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 22:55:25,973 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 22:57:08,166 - bot_logger - INFO - Команда /start
+2025-04-07 22:57:08,166 - bot_logger - INFO - Команда /start
+2025-04-07 22:57:24,896 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 22:57:24,896 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 23:02:39,488 - bot_logger - INFO - Команда /start
+2025-04-07 23:02:39,488 - bot_logger - INFO - Команда /start
+2025-04-07 23:02:57,971 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 23:02:57,971 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 23:04:29,951 - bot_logger - INFO - Команда /start
+2025-04-07 23:04:29,951 - bot_logger - INFO - Команда /start
+2025-04-07 23:04:45,800 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 23:04:45,800 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 23:09:35,361 - bot_logger - INFO - Команда /start
+2025-04-07 23:09:35,361 - bot_logger - INFO - Команда /start
+2025-04-07 23:09:52,028 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 23:09:52,028 - bot_logger - ERROR - Ошибка при отправлении уведомления по почте: Connection unexpectedly closed
+2025-04-07 23:10:08,971 - bot_logger - INFO - Команда /start
+2025-04-07 23:10:08,971 - bot_logger - INFO - Команда /start
+2025-04-07 23:21:26,071 - bot_logger - ERROR - Error occured when trying to send email notification: Connection unexpectedly closed
+2025-04-07 23:21:26,071 - bot_logger - ERROR - Error occured when trying to send email notification: Connection unexpectedly closed
+2025-04-07 23:22:23,839 - bot_logger - INFO - Command /start
+2025-04-07 23:22:23,839 - bot_logger - INFO - Command /start
+2025-04-07 23:22:39,478 - bot_logger - ERROR - Error occured when trying to send email notification: Connection unexpectedly closed
+2025-04-07 23:22:39,478 - bot_logger - ERROR - Error occured when trying to send email notification: Connection unexpectedly closed
+2025-04-07 23:22:54,969 - bot_logger - ERROR - Error occured when trying to send email notification: Connection unexpectedly closed
+2025-04-07 23:22:54,969 - bot_logger - ERROR - Error occured when trying to send email notification: Connection unexpectedly closed
+2025-04-07 23:23:06,472 - bot_logger - ERROR - Error occured when trying to send email notification: Connection unexpectedly closed
+2025-04-07 23:23:06,472 - bot_logger - ERROR - Error occured when trying to send email notification: Connection unexpectedly closed
+2025-04-07 23:23:16,859 - bot_logger - ERROR - Error occured when trying to send email notification: Connection unexpectedly closed
+2025-04-07 23:23:16,859 - bot_logger - ERROR - Error occured when trying to send email notification: Connection unexpectedly closed
+2025-04-07 23:23:35,273 - bot_logger - INFO - Command /start
+2025-04-07 23:23:35,273 - bot_logger - INFO - Command /start
+2025-04-07 23:25:54,501 - bot_logger - INFO - Command /start
+2025-04-07 23:25:54,501 - bot_logger - INFO - Command /start
+2025-04-07 23:28:01,385 - bot_logger - INFO - Command /start
+2025-04-07 23:28:01,385 - bot_logger - INFO - Command /start
+2025-04-07 23:29:40,426 - bot_logger - INFO - Command /start
+2025-04-07 23:29:40,426 - bot_logger - INFO - Command /start
+2025-04-07 23:31:20,443 - bot_logger - INFO - Command /start
+2025-04-07 23:31:20,443 - bot_logger - INFO - Command /start
+2025-04-07 23:34:40,513 - bot_logger - INFO - Command /start
+2025-04-07 23:34:40,513 - bot_logger - INFO - Command /start
+2025-04-07 23:45:51,136 - bot_logger - INFO - Command /start
+2025-04-07 23:45:51,136 - bot_logger - INFO - Command /start
+2025-04-07 23:50:40,830 - bot_logger - INFO - Command /start
+2025-04-07 23:50:40,830 - bot_logger - INFO - Command /start
+2025-04-07 23:53:01,053 - bot_logger - INFO - Command /start
+2025-04-07 23:53:01,053 - bot_logger - INFO - Command /start
+2025-04-07 23:55:11,391 - bot_logger - INFO - Command /start
+2025-04-07 23:55:11,391 - bot_logger - INFO - Command /start
+2025-04-07 23:56:07,935 - bot_logger - INFO - Command /start
+2025-04-07 23:56:07,935 - bot_logger - INFO - Command /start
+2025-04-08 00:00:36,011 - bot_logger - INFO - Command /start
+2025-04-08 00:00:36,011 - bot_logger - INFO - Command /start
+2025-04-08 00:01:24,448 - bot_logger - INFO - Command /start
+2025-04-08 00:01:24,448 - bot_logger - INFO - Command /start
+2025-04-08 00:01:29,565 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:01:29,565 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:05:41,267 - bot_logger - INFO - Command /start
+2025-04-08 00:05:41,267 - bot_logger - INFO - Command /start
+2025-04-08 00:07:02,058 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:07:02,058 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:10:53,827 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:10:53,827 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:16:05,294 - bot_logger - INFO - Command /start
+2025-04-08 00:16:05,294 - bot_logger - INFO - Command /start
+2025-04-08 00:16:40,116 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:16:40,116 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:17:44,605 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:17:44,605 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:19:24,975 - bot_logger - INFO - Quiz completed by user 5275484532
+2025-04-08 00:19:24,975 - bot_logger - INFO - Quiz completed by user 5275484532

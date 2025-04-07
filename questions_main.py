@@ -1,19 +1,55 @@
 from quiz import Question, Animal, Option
 
-arctic_fox = Animal("Песец")
-alpaca = Animal("Альпака")
-jubngle_cat = Animal("Камышовый кот")
-bearded_seal = Animal("Морской заяц")
-muskox = Animal("Канадский овцебык")
-tamarin = Animal("Краснорукий тамарин")
-ratel = Animal("Медоед")
+arctic_fox = Animal(
+    "Песец",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/c41d53da-8b31-4c2b-9011-01cccc81a899.jpg",
+)
+alpaca = Animal(
+    "Альпака",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/7ee94b22-86c4-4ae6-a583-00d4e61ea90d.jpeg",
+)
+jubngle_cat = Animal(
+    "Камышовый кот",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/6d771474-82f9-4f55-b6c5-1034e026fdd4.jpeg",
+)
+bearded_seal = Animal(
+    "Морской заяц",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/0f7ee967-f9a1-4a09-9843-8ad97914139f.jpeg",
+)
+muskox = Animal(
+    "Канадский овцебык",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/5a4c4c52-71f9-475e-8ba9-ed5863e8e6d3.jpeg",
+)
+tamarin = Animal(
+    "Краснорукий тамарин",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/81ba700d-4d46-4c6b-9c5a-a2bd4f76e323.webp",
+)
+ratel = Animal(
+    "Медоед",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/16cb2d06-ecce-4e44-a01c-f6d7ba40be5f.jpeg",
+)
 
 
-nicobar_pigeon = Animal("Никобарский голубь")
-ibis = Animal("Священный ибис")
-bittern = Animal("Большая выпь")
-galah = Animal("Розовый какаду")
-pheasant = Animal("Золотой фазан")
+nicobar_pigeon = Animal(
+    "Никобарский голубь",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/0631b2a3-b94a-447d-a9c3-2b6cc1e2438e.jpeg",
+)
+ibis = Animal(
+    "Священный ибис",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/e6ef3180-8afd-41e2-ae02-a1652edf877b.jpg",
+)
+bittern = Animal(
+    "Большая выпь",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/a9111a05-1d93-4871-989d-c8bbcf1061c7.jpeg",
+)
+galah = Animal(
+    "Розовый какаду",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/47eb38a5-b36f-49c0-bbaa-4b26d4cc7e92.jpeg",
+)
+pheasant = Animal(
+    "Золотой фазан",
+    "https://storage.moscowzoo.ru/storage/647edc2a70bb5462366280fc/images/animals/e5d25474-591c-46ea-96bc-c99cf6d32b78.JPG",
+)
 
 q1_opt1 = Option(pheasant, 3, media="./media/golden_pheasant.JPG")
 q1_opt2 = Option("Амурский тигр", is_counted=False, media="./media/tiger.JPG")
@@ -45,15 +81,15 @@ question_4 = Question(
     [q4_opt1, q4_opt2],
 )
 q5_opt1 = Option(ratel, 3, media="./media/ratel.JPG")
-q5_opt2 = Option(None)
+q5_opt2 = Option(None, is_counted=False)
 question_5 = Question(
     "Медоед известен своим бесстрашием - он не избегает схватки даже со смертельно ядовитыми змеями. Каким образом медоед одерживает победу над ними?\n\n1) Игнорирует укусы, впадает в кому после ядовитого укуса и “оживает” через час.\n2) Полагается на свою ловкость избегая укусов змеи.",
     [q5_opt1, q5_opt2],
 )
 q6_opt1 = Option(tamarin, 3, media="./media/tamarin.JPG")
 q6_opt2 = Option(tamarin, 3)
-q6_opt3 = Option(None)
-q6_opt4 = Option(None)
+q6_opt3 = Option(None, is_counted=False)
+q6_opt4 = Option(None, is_counted=False)
 question_6 = Question(
     "Воспитанием детенышей красноруких тамаринов занимаются самцы группы. В их обязанности входит:\n\n1) Ношение детенышей \n2) Расчесывание \n3) Воспитание \n4) Развлечение",
     [q6_opt1, q6_opt2, q6_opt3, q6_opt4],

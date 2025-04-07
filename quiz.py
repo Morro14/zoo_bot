@@ -8,6 +8,7 @@ class QuizBase:
         self.cur_question = 0
         self.results = []
         self.user = {}
+        self.stats = 0
 
     def __iter__(self):
         return self
@@ -44,7 +45,8 @@ class QuizBase:
 
     def reset(self):
         self.results = []
-        self.current_question = 0
+        self.cur_question = 0
+        self.stats = 0
 
     def set_user(self, id_, first_name, username, last_name, language_code):
         self.user = {
@@ -57,10 +59,9 @@ class QuizBase:
 
 
 class Question:
-    def __init__(self, question: str, options: list, attachments: list = []):
+    def __init__(self, question: str, options: list):
         self.question = question
         self.options = options
-        self.attachments = attachments
 
     def __str__(self) -> str:
         return self.question
@@ -81,34 +82,49 @@ class Option:
 
 
 class Animal:
-    def __init__(self, name: str):
+    def __init__(self, name: str, image_url: str = ""):
         self.name = name
+        self.image_url = image_url
 
     def __str__(self) -> str:
         return self.name
 
 
 def genResults(quiz):
+
+    # all valid options
     all_options = []
     for q in quiz.questions:
         for opt in q.options:
             if opt.is_counted:
                 all_options.append(opt)
 
-    valid_options = []
+    # options connected to correct answers
+    correct_options = []
     for opt in quiz.results:
         if opt.is_counted:
-            valid_options.append(opt)
+            correct_options.append(opt)
+
     weights = []
     for opt in all_options:
-        if opt not in valid_options:
+        if opt not in correct_options:
             weights.append(0)
         else:
             weights.append(opt.weight)
-    result_weighted = random.choices(
-        population=[opt for opt in valid_options],
-        weights=[opt.weight for opt in valid_options],
-        k=1,
-    )
 
+    # if there are correct answers
+    if len(correct_options) != 0:
+        result_weighted = random.choices(
+            population=[opt for opt in correct_options],
+            weights=[opt.weight for opt in correct_options],
+            k=1,
+        )
+    # if there are no correct answers
+    else:
+        result_weighted = random.choices(
+            population=[opt for opt in all_options],
+            k=1,
+        )
+    # correct answers count
+    quiz.stats = len(correct_options)
     return result_weighted[0]

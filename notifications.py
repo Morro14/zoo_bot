@@ -30,4 +30,6 @@ def send_email_notification(subject, message, user_info={}):
             print("sent")
     except Exception as e:
         print(e)
-        logger.log("error", f"Ошибка при отправлении уведомления по почте: {e}")
+        logger.log(
+            "error", f"Error occured when trying to send email notification: {e}"
+        )
