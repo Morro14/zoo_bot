@@ -9,14 +9,20 @@ from telebot.types import (
     InputMediaPhoto,
     InputFile,
 )
+from telebot import asyncio_filters
 from quiz import QuizBase, genResults
 from socials import gen_vk_link
-from questions_main import questions
-from notifications import send_email_notification
+from questions import questions
+from notifications import send_email_notification, send_email_feedback
+from telebot.states import State, StatesGroup
+from telebot.types import ReplyParameters
 
+from telebot.states.asyncio.context import StateContext
+from telebot.asyncio_storage import StateMemoryStorage
 
+state_storage = StateMemoryStorage()
 quiz = QuizBase("zoo_quiz", questions)
-bot = AsyncTeleBot(token=token)
+bot = AsyncTeleBot(token=token, state_storage=state_storage)
 logger = BotLogger("bot.log")
 
 
@@ -108,11 +114,12 @@ async def callback_query(call):
         zoo_link = hlink("ссылке", "https://moscowzoo.ru/about/guardianship")
         vk_link = gen_vk_link(img=result.animal.image_url)
         text = f"Вы можете взять этого обитателя зоопарка под свою опеку! Участие в программе «Клуб друзей зоопарка» — это помощь в содержании наших обитателей, а также ваш личный вклад в дело сохранения биоразнообразия Земли и развитие нашего зоопарка. Узнайте больше по {zoo_link}."
+        feedback_info = "Чтобы оставить отзыв, введите команду /feedback"
         formatted_link = hlink("Поделиться Вконткте", vk_link)
 
         await bot.send_message(
             chat_id=call.message.chat.id,
-            text=text + "\n\n" + formatted_link,
+            text=text + "\n\n" + feedback_info + "\n\n" + formatted_link,
             parse_mode="HTML",
             reply_markup=gen_markup("restart"),
         )
@@ -135,5 +142,40 @@ async def send_welcome(message):
         reply_markup=gen_markup("intro"),
     )
 
+
+# feedback
+class FeedbackState(StatesGroup):
+    text = State()
+
+
+@bot.message_handler(commands=["feedback"])
+async def request_feedback(message, state: StateContext):
+    await state.set(FeedbackState.text)
+    logger.log("info", f"Command /feedback")
+    await bot.send_message(
+        message.chat.id,
+        "Пожалуста, поделитесь своими замечаниями по работе бота",
+        reply_parameters=ReplyParameters(message_id=message.message_id),
+    )
+
+
+@bot.message_handler(state=FeedbackState.text)
+async def recieve_feedback(message, state: StateContext):
+    await bot.send_message(
+        message.chat.id,
+        "Отзыв получен.",
+        reply_parameters=ReplyParameters(message_id=message.message_id),
+    )
+    logger.log("info", f"User has left feedback")
+    await state.add_data(text=message.text)
+    send_email_feedback("feedback", message.text)
+    await state.delete()
+
+
+bot.add_custom_filter(asyncio_filters.StateFilter(bot))
+
+from telebot.states.asyncio.middleware import StateMiddleware
+
+bot.setup_middleware(StateMiddleware(bot))
 
 asyncio.run(bot.polling())
