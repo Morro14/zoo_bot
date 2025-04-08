@@ -16,7 +16,6 @@ from notifications import send_email_notification
 
 
 quiz = QuizBase("zoo_quiz", questions)
-# bot = telebot.TeleBot(token=token)
 bot = AsyncTeleBot(token=token)
 logger = BotLogger("bot.log")
 
@@ -73,8 +72,6 @@ async def callback_query(call):
         quiz.reset()
         print("quiz start")
 
-    # if quiz.cur_question < 11:
-    #     quiz.cur_question = 11
     if quiz.cur_question < len(quiz):
 
         cur_question = quiz.get_cur_question()
@@ -119,14 +116,12 @@ async def callback_query(call):
             parse_mode="HTML",
             reply_markup=gen_markup("restart"),
         )
-        # try:
-        #     await send_email_notification(
-        #         subject="Рузельтаты викторины",
-        #         message=result.animal,
-        #         user_info=quiz.user,
-        #     )
-        # except Exception as e:
-        #     print(e)
+
+        send_email_notification(
+            subject="Рузельтаты викторины",
+            message=result.animal,
+            user_info=quiz.user,
+        )
 
 
 @bot.message_handler(commands=["start", "help"])

@@ -10,19 +10,20 @@ def send_email_notification(subject, message, user_info={}):
 
     smtp_server = "smtp.gmail.com"
     smtp_port = 465
-    smtp_username = "zoo_bot"
+    smtp_username = "your@email.com"
     smtp_password = "password"
 
-    sender = "ivfmn1@gmail.com"
-    recipient = "ivfmn1@gmail.com"
+    sender = "your@email.com"
+    recipient = "admin@email.com"
     message_full = f"Результаты викторины: {message}\n\nДанные пользователя:\nid: {user_info['id_']}\nFirst name: {user_info['first_name']}\nUsername: {user_info['username']}\nLast name: {user_info['last_name']}\nLanguage: {user_info['language_code']}"
     msg = MIMEText(message_full)
     msg["Subject"] = subject
     msg["From"] = sender
     msg["To"] = recipient
 
+    print("trying to connect to smtp server")
     try:
-        with smtplib.SMTP(smtp_server, smtp_port, timeout=20.0) as server:
+        with smtplib.SMTP_SSL(smtp_server, smtp_port) as server:
             print("server context")
             server.login(smtp_username, smtp_password)
             print("logged in")
