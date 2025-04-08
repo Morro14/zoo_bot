@@ -10,7 +10,7 @@ def send_email_notification(subject, message, user_info={}):
 
     # same email for test purposes
     sender = smtp_username
-    recipient = smtp_username
+    recipient = ""
 
     message_full = f"Результаты викторины: {message}\n\nДанные пользователя:\nid: {user_info['id_']}\nFirst name: {user_info['first_name']}\nUsername: {user_info['username']}\nLast name: {user_info['last_name']}\nLanguage: {user_info['language_code']}"
     msg = MIMEText(message_full)
@@ -35,9 +35,8 @@ def send_email_notification(subject, message, user_info={}):
 
 def send_email_feedback(subject, message):
 
-    # same email for test purposes
     sender = smtp_username
-    recipient = smtp_username
+    recipient = ""
 
     body = message
     msg = MIMEText(body)
